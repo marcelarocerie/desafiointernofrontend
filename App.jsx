@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-function App() {
-  const [api, setApi] = useState("");
+export default function App() {
+  const [api, setApi] = useState("carregando...");
 
   useEffect(() => {
     fetch(import.meta.env.VITE_API_BASE_URL + "/api/ping")
-      .then((res) => res.json())
-      .then((data) => setApi(data.pong ? "pong" : "erro"));
+      .then((r) => r.json())
+      .then((d) => setApi(d.pong ? "pong" : "erro"))
+      .catch(() => setApi("erro"));
   }, []);
 
   return (
@@ -17,5 +18,3 @@ function App() {
     </div>
   );
 }
-
-export default App;
